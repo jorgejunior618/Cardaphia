@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 class Menu extends Component {
   render() { 
-    return ( <div>
-      <h1>Not found</h1>
+    return (
+    <div>
+      <h1>
+        Tchurusbango tchurusbagos
+      </h1>
     </div> );
   }
 }
