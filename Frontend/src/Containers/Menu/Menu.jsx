@@ -14,6 +14,11 @@ const columns =  [
 ]
 function Menu (props) {
   const history = useHistory();
+  
+  if (!localStorage.getItem('tableCode')) {
+    history.push('/');
+  }
+  
   const pedido = new Pedido('111');
   const [ isFinalized, finalize ] = useState(false)
   const [ pedidoRealizado, setPedidoRelizado ] = useState({});
@@ -24,7 +29,8 @@ function Menu (props) {
       success: "Pedido realizado com suceso",
     };
     console.log(response);
-    finalize(false)
+    finalize(false);
+    alert(response.success);
     history.push('/Menu');
   }
 

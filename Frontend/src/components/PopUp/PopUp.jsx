@@ -6,8 +6,8 @@ class PopUp extends Component {
   constructor(props){
     super(props);
     this.pedido = props.pedido
-    this.finalizePedido = props.finalizePedido;
     this.abortPedido = props.abortPedido;
+    this.finalizePedido = props.finalizePedido;
   }
 
   render() { 
