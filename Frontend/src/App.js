@@ -1,6 +1,8 @@
 import React from 'react';
 import Routes from './Routes';
 
+import './Global.css'
+
 function App() {
   return (
     <>
@@ -10,3 +12,4 @@ function App() {
 }
 
 export default App;
+;
