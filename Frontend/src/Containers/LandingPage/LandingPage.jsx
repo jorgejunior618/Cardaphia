@@ -5,7 +5,7 @@ import './LandingPage.css'
 import siteIcon from '../../assets/novoIcone.svg';
 
 function LandingPage(props) {
-  const isRestaurant = props.location.pathname === '/restaurant';
+  const isRestaurant = props.location.pathname === '/restaurante';
   const history = useHistory();
   const [ code, setCode ] = useState('');
 
