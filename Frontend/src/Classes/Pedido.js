@@ -20,7 +20,7 @@ class Pedido {
     };
 
     const changingPrato = this._encontrarPrato(prato.id)
-    
+
     if (changingPrato !== -1) {
       this._changePrato(changingPrato, quantidade)
     }else {
