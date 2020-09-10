@@ -13,6 +13,14 @@ class Pedido {
     return this._pratos;
   }
 
+  get requestValue() {
+    console.log(this._pratos);
+    const value = this._pratos.reduce((value, prato) => {
+      return (Number(prato.prato.preco) * prato.quantidade) + value;
+    }, 0)
+    return value;
+  }
+
   addPrato({ prato, quantidade }) {
     const novoPrato = {
       prato: prato,
@@ -20,7 +28,7 @@ class Pedido {
     };
 
     const changingPrato = this._encontrarPrato(prato.id)
-    
+
     if (changingPrato !== -1) {
       this._changePrato(changingPrato, quantidade)
     }else {
