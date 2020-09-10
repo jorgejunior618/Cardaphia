@@ -14,14 +14,20 @@ class PopUp extends Component {
     return (
       <div id="popUp">
         <h3>Seu Pedido</h3>
-        <ul id="itens">
-        {this.pedido.pratos.map(prato => (
-          <li key={prato.prato.nome + prato.prato.id}>
-            <span>{prato.prato.nome} </span>
-            <span>R$ {prato.prato.preco} </span>
-          </li>
-        ))}
-        </ul>
+        
+        <div id="requestView">
+          <ul id="itens">
+            {this.pedido.pratos.map(prato => (
+              <li key={prato.prato.nome + prato.prato.id}>
+                <span>{prato.prato.nome} </span>
+                <span>{prato.quantidade} </span>
+              </li>
+            ))}
+          </ul>
+          
+          <span>Valor do pedido: R${this.pedido.requestValue}</span>
+        </div>
+
         <button id="finalizePedido" onClick={this.finalizePedido}>
           Finalizar Pedido
         </button>
