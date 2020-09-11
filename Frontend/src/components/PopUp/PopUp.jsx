@@ -5,9 +5,15 @@ import './PopUp.css';
 class PopUp extends Component {
   constructor(props){
     super(props);
-    this.pedido = props.pedido
-    this.abortPedido = props.abortPedido;
-    this.finalizePedido = props.finalizePedido;
+    this.order = props.order
+    this.abortOrder = props.abortOrder;
+    
+  }
+
+  finalizeOrder(){
+    const { finalizeOrder } = this.props;
+    this.order.setDishesToSendDataBase();
+    finalizeOrder(this.order);
   }
 
   render() { 
@@ -17,22 +23,22 @@ class PopUp extends Component {
         
         <div id="requestView">
           <ul id="itens">
-            {this.pedido.pratos.map(prato => (
-              <li key={prato.prato.nome + prato.prato.id}>
-                <span>{prato.prato.nome} </span>
-                <span>{prato.quantidade} </span>
+            {this.order.dishes.map(dish => (
+              <li key={dish.dish.name + dish.dish.id}>
+                <span>{dish.dish.name} </span>
+                <span>{dish.amount} </span>
               </li>
             ))}
           </ul>
           
-          <span>Valor do pedido: R${this.pedido.requestValue}</span>
+          <span>Valor do Pedido: R${this.order.requestValue}</span>
         </div>
 
-        <button id="finalizePedido" onClick={this.finalizePedido}>
+        <button onClick={this.finalizeOrder.bind(this)}>
           Finalizar Pedido
         </button>
 
-        <button onClick={this.abortPedido}>
+        <button onClick={this.abortOrder}>
           Voltar para o menu
         </button>
       </div>

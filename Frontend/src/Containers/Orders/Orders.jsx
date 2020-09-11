@@ -2,17 +2,17 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import ListRequests from '../../components/ListRequests/ListRequests'
+import OrdersList from '../../components/OrdersList/OrdersList'
 
 
-import Pedido from '../../Classes/Pedido';
+import Order from '../../Classes/Order';
 
-const pedido1 = new Pedido('01');
-pedido1.addPrato({prato: { nome: 'agua', quantidade: 1, id: 12 } })
-const pedido2 = new Pedido('02');
-pedido2.addPrato({prato: { nome: 'suco', quantidade: 2, id: 132 } })
+const pedido1 = new Order('01');
+pedido1.addDish({dish: { name: 'agua', amount: 1, id: 12 } })
+const pedido2 = new Order('02');
+pedido2.addDish({dish: { name: 'suco', amount: 2, id: 132 } })
 
-const pedidos = []
+const orders = [pedido1, pedido2];
 
 function Requests (props) {
   const history = useHistory();
@@ -28,8 +28,8 @@ function Requests (props) {
         subtitle="Cardápio"
       />
 
-      <ListRequests
-        pedido={pedidos}
+      <OrdersList
+        orders={orders}
       />
     </>
   );

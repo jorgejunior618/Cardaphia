@@ -3,43 +3,46 @@ import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
-import Pedido from '../../Classes/Pedido';
+import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
 
 const columns =  [
-  {id: 1, nome: 'prato', preco: '88'},
-  {id: 2, nome: 'prato2', preco: '9'},
-  {id: 3, nome: 'prato3', preco: '55'},
-  {id: 4, nome: 'prato4', preco: '66'},
+  {id: 1, name: 'prato', price: '88'},
+  {id: 2, name: 'prato2', price: '9'},
+  {id: 3, name: 'prato3', price: '55'},
+  {id: 4, name: 'prato4', price: '66'},
 ]
 function Menu (props) {
   const history = useHistory();
-  
-  if (!localStorage.getItem('tableCode')) {
+  const tableCode = localStorage.getItem('tableCode');
+
+  if (!tableCode) {
     history.push('/');
   }
   
-  const pedido = new Pedido('111');
+  const order = new Order('111', tableCode);
   const [ isFinalized, finalize ] = useState(false)
-  const [ pedidoRealizado, setPedidoRelizado ] = useState({});
+  const [ orderRealized, setOrderRealized ] = useState({});
 
-  function finalizeRequest() {
+  function finalizeOrder(order) {
+    setOrderRealized(order);
     const response = {
-      request: pedidoRealizado,
+      request: orderRealized,
       success: "Pedido realizado com suceso",
     };
     console.log(response);
     finalize(false);
     alert(response.success);
-    history.push('/Menu');
+    history.push('/waiting');
   }
 
-  function ShowPopUp(pedido) {
-    setPedidoRelizado(pedido);
+  function ShowPopUp(order) {
+    setOrderRealized(order);
+
     finalize(true);
   }
 
-  function abortRequest() {
+  function abortOrder() {
     finalize(false);
   }
 
@@ -51,17 +54,17 @@ function Menu (props) {
       />
 
       <List
-        pratos={columns}
-        pedido={pedido}
+        dishes={columns}
+        order={order}
         ShowPopUp={ShowPopUp}
       />
 
       {isFinalized
       ? (
       <PopUp
-        pedido={pedidoRealizado}
-        finalizePedido={finalizeRequest}
-        abortPedido={abortRequest}
+        order={orderRealized}
+        finalizeOrder={finalizeOrder}
+        abortOrder={abortOrder}
       />)
       : (<></>) }
        
