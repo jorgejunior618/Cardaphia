@@ -4,22 +4,10 @@ import { Link } from 'react-router-dom';
 import './List.css';
 
 class List extends Component {
-  state = {
-    dishes: [],
-  }
-
   constructor(props) {
     super(props);
+    this.dishes = props.dishes;
     this.order = props.order;
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    console.log(props.dishes)
-    if(props.dishes.length !== state.dishes.length) {
-      return {
-        dishes: props.dishes.dishes,
-      }
-    }
   }
 
   changeOrder(dish, amountDishes) {
@@ -49,8 +37,7 @@ class List extends Component {
       <>
         <Link to="/">VOLTAR</Link>
         <ul id="menuList">
-
-          {this.state.dishes.map(dish => (
+          {this.dishes.map(dish => (
             <li id="menuItem" key={dish.id}>
               <Link to={`/dish/${dish.id}`}>
                 <span>Prato: {dish.name}</span> <br/>
