@@ -5,7 +5,7 @@ import './OrdersList.css';
 class OrdersList extends Component {
   constructor(props) {
     super(props);
-    this.orders = props.orders;
+    this.orders = props.orders
   }
   
   render() { 
@@ -13,9 +13,9 @@ class OrdersList extends Component {
       <>
         <h2>Pedidos realizados</h2>
         <ul id="requestList">
-          {
+          {  
             (this.orders.length)
-            ? (
+            ?(
               this.orders.map( order => (
                 <li id="requestItem" key={order.code}>
                   <div id="resquestInfo">
