@@ -5,23 +5,34 @@ import './LandingPage.css'
 import siteIcon from '../../assets/novoIcone.svg';
 
 function LandingPage(props) {
-  const isRestaurant = props.location.pathname === '/restaurant';
+  const isRestaurant = props.location.pathname === '/restaurante';
   const history = useHistory();
   const [ code, setCode ] = useState('');
+
+  localStorage.clear();
 
   function handleChangeInput(event) {
     event.stopPropagation();
     setCode(event.target.value);
   }
 
-  function getRestaurant(event) {
+  function redirectToNextPage(event) {
     event.preventDefault();
-    localStorage.setItem('restaurantCode', code);
 
     if (isRestaurant) {
-      history.push('/pedidos');
+      if (code.length === 6) {
+        history.push('/pedidos');
+        localStorage.setItem('restaurantCode', code);
+      } else {
+        alert('Digite o código de 6 (seis) números do seu restaurante');
+      }
     } else {
-      history.push('/menu');
+      if (code.length === 3) {
+        history.push('/menu');
+        localStorage.setItem('tableCode', code);
+      } else {
+        alert('Digite o código de 3 (três) números da mesa que deseja participar');
+      }
     }
   }
   
@@ -45,7 +56,7 @@ function LandingPage(props) {
       </div>
       <form
         action="submit"
-        onSubmit={getRestaurant}
+        onSubmit={redirectToNextPage}
       >
         <input
           type="text"
