@@ -6,28 +6,30 @@ import './List.css';
 class List extends Component {
   constructor(props) {
     super(props);
-    this.pratos = props.pratos
-    this.pedido = props.pedido
+    this.dishes = props.dishes;
+    this.order = props.order;
   }
 
-  changePedido(prato, amount) {
-    const quantidade = Number(amount);
+  changeOrder(dish, amountDishes) {
+    const amount = Number(amountDishes);
 
-    if (Number(quantidade) === 0) {
-      this.pedido.removePrato(prato.id)
+    if (amount === 0) {
+      this.order.removeDish(dish.id);
     } else {
-      this.pedido.addPrato({prato: prato, quantidade: quantidade})
+      this.order.addDish({dish: dish, amount: amount});
     }
   }
 
-  sendRequest() {
+  sendOrder() {
     const { ShowPopUp } = this.props;
 
-    if (this.pedido.pratos.length === 0) {
-      return alert('Adicione a quantidade dos pratos que deseja pedir! :)')
+    if (this.order.dishes.length === 0) {
+      return alert('Adicione a amount dos dishes que deseja pedir! :)')
     }
+
+    // this.order.setDishesToSendDataBase()
     
-    ShowPopUp(this.pedido);
+    ShowPopUp(this.order);
   }
 
   render() { 
@@ -35,17 +37,17 @@ class List extends Component {
       <>
         <Link to="/">VOLTAR</Link>
         <ul id="menuList">
-          {this.pratos.map(prato => (
-            <li id="menuItem" key={prato.id}>
-              <Link to={`/prato/${prato.id}`}>
-                <span>Prato: {prato.nome}</span> <br/>
-                <span>preco: {prato.preco}</span>
+          {this.dishes.map(dish => (
+            <li id="menuItem" key={dish.id}>
+              <Link to={`/dish/${dish.id}`}>
+                <span>Prato: {dish.name}</span> <br/>
+                <span>preco: {dish.price}</span>
               </Link>
 
               <span id="amountItem">
                 <input
                   defaultValue="0"
-                  onChange={(e) => this.changePedido(prato, e.target.value)}
+                  onChange={(e) => this.changeOrder(dish, e.target.value)}
                   min="0"
                   type="number"
                 />
@@ -54,8 +56,8 @@ class List extends Component {
           ))}
 
         </ul>
-        <button onClick={this.sendRequest.bind(this)} id="sendRequest">
-          Enviar pedido
+        <button onClick={this.sendOrder.bind(this)} id="sendOrder">
+          Enviar Pedido
         </button>
       </>
     );

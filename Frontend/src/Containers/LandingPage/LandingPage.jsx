@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import './LandingPage.css'
-import siteIcon from '../../assets/novoIcone.svg';
+import appIcon from '../../assets/novoIcone.svg';
 
 function LandingPage(props) {
-  const isRestaurant = props.location.pathname === '/restaurante';
+  const isRestaurant = props.location.pathname === '/restaurant';
   const history = useHistory();
   const [ code, setCode ] = useState('');
 
@@ -21,7 +21,7 @@ function LandingPage(props) {
 
     if (isRestaurant) {
       if (code.length === 6) {
-        history.push('/pedidos');
+        history.push('/orders');
         localStorage.setItem('restaurantCode', code);
       } else {
         alert('Digite o código de 6 (seis) números do seu restaurante');
@@ -47,7 +47,7 @@ function LandingPage(props) {
   return (
     <section id="landingPage">
       <div>
-        <img src={siteIcon} alt="Cardaphia"/>
+        <img src={appIcon} alt="Cardaphia"/>
         <h3>
           Digite o código {isRestaurant
             ? 'do seu restaurante'
