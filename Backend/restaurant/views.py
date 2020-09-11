@@ -13,13 +13,23 @@ import sys
 sys.path.insert(0, '..')
 
 from .models import Restaurant
-from serial import restaurantSerializer
+from order.models import Order
+from table.models import Table
+import serial
 
-## CHAVE ```@api_view(["METHOD"])``` PARA DEFINIR A REQUISIÇÃO
-# QUE SERÁ FEITA AO BANCO DE DADOS
 @api_view(['GET'])
-def restaurante(request):
-    restaurante_var = Restaurant.objects.all()
-    serializer = restaurantSerializer(restaurante_var, many=True)
+def buscarPedidosEstabelecimento(request, id):
+    aux_list = []
+    pedidos_var = Order.objects.all()
+    for i in range(len(pedidos_var)):
+        if pedidos_var[i].table.restaurant.pk == id:
+            aux_list.append(pedidos_var[i])
+
+    serializer = serial.orderSerializer(aux_list, many=True)
     JSONObj = JsonResponse({'tasks': serializer.data}, safe=False, status=status.HTTP_200_OK)
     return JSONObj
+
+
+
+
+    
