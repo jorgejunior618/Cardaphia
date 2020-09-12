@@ -1,17 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
 import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
+import { getMenu } from '../../Services/clientes.service';
 
-const columns =  [
-  {id: 1, name: 'prato', price: '88'},
-  {id: 2, name: 'prato2', price: '9'},
-  {id: 3, name: 'prato3', price: '55'},
-  {id: 4, name: 'prato4', price: '66'},
-]
 function Menu (props) {
   const history = useHistory();
   const tableCode = localStorage.getItem('tableCode');
@@ -20,9 +15,18 @@ function Menu (props) {
     history.push('/');
   }
   
-  const order = new Order('111', tableCode);
+  const order = new Order(Number(tableCode));
   const [ isFinalized, finalize ] = useState(false)
   const [ orderRealized, setOrderRealized ] = useState({});
+  const [ dishes, setDishes ] = useState([]);
+
+  useEffect(() => {
+    getMenu(1)
+      .then(response => setDishes(response.data))
+      .catch(error => console.log(error)); 
+  }, []);
+
+  // console.log(dishes)
 
   function finalizeOrder(order) {
     setOrderRealized(order);
@@ -54,11 +58,13 @@ function Menu (props) {
       />
 
       <List
-        dishes={columns}
+        dishes={dishes}
         order={order}
         ShowPopUp={ShowPopUp}
       />
 
+      {/* <h3>Sem Cardápio no momento</h3> */}
+      
       {isFinalized
       ? (
       <PopUp

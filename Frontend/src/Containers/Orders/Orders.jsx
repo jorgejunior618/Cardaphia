@@ -1,25 +1,29 @@
-import React from 'react';
+import React, {useEffect,  useState} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import OrdersList from '../../components/OrdersList/OrdersList'
+import OrdersList from '../../components/OrdersList/OrdersList';
+
+import { getOrders } from '../../Services/restaurant.service';
 
 
-import Order from '../../Classes/Order';
+function Orders() {
+  const [orders, setorders] = useState([]);
+  const isLoged = localStorage.getItem('restaurantCode');
 
-const pedido1 = new Order('01');
-pedido1.addDish({dish: { name: 'agua', amount: 1, id: 12 } })
-const pedido2 = new Order('02');
-pedido2.addDish({dish: { name: 'suco', amount: 2, id: 132 } })
-
-const orders = [pedido1, pedido2];
-
-function Requests (props) {
-  const history = useHistory();
-  
-  if (!localStorage.getItem('restaurantCode')) {
+  if (!isLoged) {
     history.push('/restaurant');
   }
+  
+  const history = useHistory();
+  
+  useEffect(() => {
+      getOrders(1)
+        .then(response => {
+          setorders(response.data);        
+        })
+        .catch(error => console.log({error: error}));
+  },[]);
 
   return (
     <> 
@@ -34,4 +38,5 @@ function Requests (props) {
     </>
   );
 }
-export default Requests;
+
+export default Orders;

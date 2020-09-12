@@ -3,30 +3,47 @@ import React, { Component } from 'react';
 import './OrdersList.css';
 
 class OrdersList extends Component {
-  constructor(props) {
-    super(props);
-    this.orders = props.orders;
+  state = {
+    orders: [],
   }
-  
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('Orders', props.orders);
+    if(props.orders.length !== state.orders.length) {
+      return {
+        orders: props.orders.tasks,
+      }
+    }
+  }
+
   render() { 
     return (
       <>
         <h2>Pedidos realizados</h2>
         <ul id="requestList">
-          {
-            (this.orders.length)
-            ? (
-              this.orders.map( order => (
-                <li id="requestItem" key={order.code}>
+          {(this.state.orders.length)
+            ? (this.state.orders.map(order => (
+                /* Order:
+                    id: 1
+                    orderTime: "2020-09-09T01:30:58.119695Z"
+                    table: 2
+                */
+
+                <li id="requestItem" key={order.id}>
                   <div id="resquestInfo">
-                    <span>{order.code}</span>
-                    <span>{order.orderDate.split(' ')[1]}</span>
+                    <span>{order.id}</span>
+
+                    <span>
+                      {order.orderTime
+                      .split('T').join(' ')
+                      .split('.')[0]}
+                    </span>
                   </div>
                   <ul id="resquestUl">
                     {
                       order.dishes.map( dish => (                    
-                        <li key={dish.dish.id}>
-                          <span>{dish.dish.name}</span> <br/>
+                        <li key={dish}>
+                          <span>{dish}</span> <br/>
                         </li>
                       ))
                     }

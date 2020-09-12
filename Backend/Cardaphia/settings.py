@@ -130,4 +130,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000"
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'POST',
+    'PUT',
+]
+
 CORS_ORIGIN_ALLOW_ALL = True
