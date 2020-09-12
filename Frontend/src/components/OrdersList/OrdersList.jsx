@@ -11,8 +11,12 @@ class OrdersList extends Component {
     //console.log('Orders', props.orders);
     if(props.orders.length !== state.orders.length) {
       return {
-        orders: props.orders.tasks,
+        orders: props.orders.orders,
       }
+    }
+
+    return {
+      orders: [],
     }
   }
 

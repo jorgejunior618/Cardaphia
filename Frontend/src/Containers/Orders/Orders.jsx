@@ -34,15 +34,15 @@ function Orders() {
   }, []);
 
   function pedidos(orders,dishes){
-    if(orders.tasks && dishes.dishes){
-      for(let i=0; i<orders.tasks.length; i++ ){
+    if(orders.orders && dishes.dishes){
+      for(let i=0; i<orders.orders.length; i++ ){
         
-        for(let j=0; j<orders.tasks[i].dishes.length; j++){
+        for(let j=0; j<orders.orders[i].dishes.length; j++){
 
           for(let a=0; a<dishes.dishes.length; a++){
 
-            if(orders.tasks[i].dishes[j] === dishes.dishes[a].id){
-              orders.tasks[i].dishes[j] = dishes.dishes[a].name
+            if(orders.orders[i].dishes[j] === dishes.dishes[a].id){
+              orders.orders[i].dishes[j] = dishes.dishes[a].name
             }
           }
         }

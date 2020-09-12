@@ -19,6 +19,11 @@ class List extends Component {
         dishes: props.dishes.dishes,
       }
     }
+
+    
+    return {
+      dishes: [],
+    }
   }
 
   changeOrder(dish, amountDishes) {
