@@ -14,7 +14,6 @@ class List extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log(props.dishes)
     if(props.dishes.length !== state.dishes.length) {
       return {
         dishes: props.dishes.dishes,

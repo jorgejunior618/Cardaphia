@@ -1,7 +1,9 @@
-import axios from 'axios';
+import api from './api';
 
-const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
-})
+export function getOrders(restaurantID) {
+  const endpoint = `restaurante/${restaurantID}/pedidos/`;
 
-export default api;
+  const response = api.get(endpoint);
+
+  return response;
+}

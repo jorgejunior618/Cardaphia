@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
 import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
-import api from '../../Services/Restaurant.service';
+import { getMenu } from '../../Services/clientes.service';
 
 function Menu (props) {
   const history = useHistory();
@@ -21,12 +21,12 @@ function Menu (props) {
   const [ dishes, setDishes ] = useState([]);
 
   useEffect(() => {
-    api.get(`/restaurante/${1}/dishes/`)
+    getMenu(1)
       .then(response => setDishes(response.data))
       .catch(error => console.log(error)); 
   }, []);
 
-  console.log(dishes)
+  // console.log(dishes)
 
   function finalizeOrder(order) {
     setOrderRealized(order);
@@ -48,27 +48,6 @@ function Menu (props) {
 
   function abortOrder() {
     finalize(false);
-  }
-
-  if (dishes.length) {
-    return (
-      <> 
-        <Header
-          title="Restauante Jorge"
-          subtitle="Cardápio"
-        />
-        
-        {isFinalized
-        ? (
-        <PopUp
-          order={orderRealized}
-          finalizeOrder={finalizeOrder}
-          abortOrder={abortOrder}
-        />)
-        : (<></>) }
-        
-      </>
-    )
   }
 
   return (
