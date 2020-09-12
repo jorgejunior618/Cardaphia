@@ -8,7 +8,7 @@ class OrdersList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('Orders', props.orders);
+    //console.log('Orders', props.orders);
     if(props.orders.length !== state.orders.length) {
       return {
         orders: props.orders.tasks,
@@ -16,7 +16,7 @@ class OrdersList extends Component {
     }
   }
 
-  render() { 
+  render() {
     return (
       <>
         <h2>Pedidos realizados</h2>

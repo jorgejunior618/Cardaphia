@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import OrdersList from '../../components/OrdersList/OrdersList';
 
-import { getOrders } from '../../Services/restaurant.service';
+import { getOrders } from '../../Services/Restaurant.service';
+import { getMenu } from '../../Services/clientes.service';
 
 
 function Orders() {
-  const [orders, setorders] = useState([]);
+  const [ orders, setorders] = useState([]);
+  const [ dishes, setDishes ] = useState([]);
   const isLoged = localStorage.getItem('restaurantCode');
 
   if (!isLoged) {
@@ -25,6 +27,29 @@ function Orders() {
         .catch(error => console.log({error: error}));
   },[]);
 
+  useEffect(() => {
+    getMenu(1)
+      .then(response => setDishes(response.data))
+      .catch(error => console.log(error)); 
+  }, []);
+
+  function pedidos(orders,dishes){
+    if(orders.tasks && dishes.dishes){
+      for(let i=0; i<orders.tasks.length; i++ ){
+        
+        for(let j=0; j<orders.tasks[i].dishes.length; j++){
+
+          for(let a=0; a<dishes.dishes.length; a++){
+
+            if(orders.tasks[i].dishes[j] === dishes.dishes[a].id){
+              orders.tasks[i].dishes[j] = dishes.dishes[a].name
+            }
+          }
+        }
+      }
+    }
+  }
+  pedidos(orders,dishes)
   return (
     <> 
       <Header
