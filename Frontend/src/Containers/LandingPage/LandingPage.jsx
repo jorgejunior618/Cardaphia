@@ -20,19 +20,35 @@ function LandingPage(props) {
     event.preventDefault();
 
     if (isRestaurant) {
-      if (code.length === 6) {
-        history.push('/orders');
-        localStorage.setItem('restaurantCode', code);
-      } else {
-        alert('Digite o código de 6 (seis) números do seu restaurante');
+      if (code.length !== 3) {
+        return alert('Digite o código de 3 (seis) números do seu restaurante');
       }
-    } else {
-      if (code.length === 3) {
-        history.push('/menu');
-        localStorage.setItem('tableCode', code);
-      } else {
-        alert('Digite o código de 3 (três) números da mesa que deseja participar');
+
+      if (isNaN(code)) {
+        return alert('Informe o codigo numerico corretamente!')
       }
+
+      localStorage.setItem('restaurantCode', Number(code));
+
+      console.log(typeof localStorage.getItem('restaurantCode'))
+      
+      history.push('/orders');
+    }
+    
+    else {
+      if (code.length !== 6) {
+        return alert('Digite o código de 6 (três) números da mesa que deseja participar');
+      }
+
+      const restaurantID = code.slice(0, 3);
+      if(isNaN(restaurantID)) {
+        return alert('codigo errado!');
+      }
+      
+      localStorage.setItem('restaurantID', restaurantID);
+      localStorage.setItem('tableCode', code);
+
+      history.push('/menu');
     }
   }
   
