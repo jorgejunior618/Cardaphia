@@ -41,7 +41,7 @@ class Order {
       amount: amount,
     };
 
-    const changingDish = this._findDish(dish.id)
+    const changingDish = this._findDish(dish.dishId)
 
     if (changingDish !== -1) {
       this._changeDish(changingDish, amount)
@@ -51,12 +51,12 @@ class Order {
   }
 
   removeDish(dishId) {
-    this.dishes = this.dishes.filter(dish => dish.dish.id !== dishId)
+    this.dishes = this.dishes.filter(dish => dish.dish.dishId !== dishId)
   }
   
   // Metodos utilitáios
   _findDish(dishId) {
-    return this.dishes.findIndex(p => p.dish.id === dishId);
+    return this.dishes.findIndex(p => p.dish.dishId === dishId);
   }
 
   _changeDish(index, amount) {
