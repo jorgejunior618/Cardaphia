@@ -29,8 +29,6 @@ function LandingPage(props) {
       }
 
       localStorage.setItem('restaurantCode', Number(code));
-
-      console.log(typeof localStorage.getItem('restaurantCode'))
       
       history.push('/orders');
     }
@@ -45,7 +43,7 @@ function LandingPage(props) {
         return alert('codigo errado!');
       }
       
-      localStorage.setItem('restaurantID', restaurantID);
+      localStorage.setItem('restaurantID', Number(restaurantID));
       localStorage.setItem('tableCode', code);
 
       history.push('/menu');

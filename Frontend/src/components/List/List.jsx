@@ -19,7 +19,6 @@ class List extends Component {
         dishes: props.dishes.dishes,
       }
     }
-
     
     return {
       dishes: [],
@@ -30,7 +29,7 @@ class List extends Component {
     const amount = Number(amountDishes);
 
     if (amount === 0) {
-      this.order.removeDish(dish.id);
+      this.order.removeDish(dish.dishId);
     } else {
       this.order.addDish({dish: dish, amount: amount});
     }
@@ -42,8 +41,6 @@ class List extends Component {
     if (this.order.dishes.length === 0) {
       return alert('Adicione a amount dos dishes que deseja pedir! :)')
     }
-
-    // this.order.setDishesToSendDataBase()
     
     ShowPopUp(this.order);
   }
@@ -55,8 +52,8 @@ class List extends Component {
         <ul id="menuList">
 
           {this.state.dishes.map(dish => (
-            <li id="menuItem" key={dish.id}>
-              <Link to={`/dish/${dish.id}`}>
+            <li id="menuItem" key={dish.dishId}>
+              <Link to={`/dish/${dish.dishId}`}>
                 <span>Prato: {dish.name}</span> <br/>
                 <span>preco: {dish.price}</span>
               </Link>

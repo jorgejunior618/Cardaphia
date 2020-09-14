@@ -1,8 +1,8 @@
 class Order {
-  constructor(tableCode) {
+  constructor(tableCode, restaurantId) {
     this.dishes = [];
-    this._orderDate = new Date().toLocaleString();
-    this.tableCode = tableCode;
+    this.orderTable = tableCode;
+    this.restaurantId = restaurantId;
   }
 
   get code() {
