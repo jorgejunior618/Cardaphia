@@ -36,6 +36,8 @@ function Menu (props) {
       request: orderRealized,
       success: "Pedido realizado com suceso",
     };
+
+    console.log(response.request)
     
     alert(response.success);
     finalize(false);

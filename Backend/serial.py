@@ -13,6 +13,7 @@ class restaurantSerializer(serializers.ModelSerializer):
     model = restaurant_models.Restaurant
     fields = '__all__'
 
+
 class dishSerializer(serializers.ModelSerializer):
   class Meta:
     model = dish_models.Dish
@@ -23,7 +24,9 @@ class menuSerializer(serializers.ModelSerializer):
     model = menu_models.Menu
     fields = '__all__'
 
-class orderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
+  dishes = serializers.StringRelatedField(many=True)
+
   class Meta:
     model = order_models.Order
     fields = '__all__'
