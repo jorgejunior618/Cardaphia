@@ -28,7 +28,7 @@ class Order {
     this.dishes = this.dishes.reduce((newDishes, dish) => {
       const newArrayDishes = [];
       for(let i = 0; i< dish.amount; i++) {
-        newArrayDishes.push(dish.dish)
+        newArrayDishes.push(dish.dish.dishId)
       }
       
       return [...newDishes,...newArrayDishes];
