@@ -6,5 +6,3 @@ urlpatterns = [
     path('restaurante/<int:id>/', include('restaurant.urls')),
     path ('restaurante/<int:id>/', include ('dish.urls')),
 ]
-
-    
