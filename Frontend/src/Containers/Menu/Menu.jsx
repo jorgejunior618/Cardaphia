@@ -9,34 +9,37 @@ import { getMenu } from '../../Services/clientes.service';
 
 function Menu (props) {
   const history = useHistory();
+  
+  const restaurantID = localStorage.getItem('restaurantID');
   const tableCode = localStorage.getItem('tableCode');
 
   if (!tableCode) {
     history.push('/');
   }
   
-  const order = new Order(Number(tableCode));
+  const order = new Order(tableCode, Number(restaurantID));
+
   const [ isFinalized, finalize ] = useState(false)
   const [ orderRealized, setOrderRealized ] = useState({});
   const [ dishes, setDishes ] = useState([]);
 
   useEffect(() => {
-    getMenu(1)
+    getMenu(restaurantID)
       .then(response => setDishes(response.data))
       .catch(error => console.log(error)); 
-  }, []);
-
-  // console.log(dishes)
+  }, [restaurantID]);
 
   function finalizeOrder(order) {
     setOrderRealized(order);
+    
     const response = {
       request: orderRealized,
       success: "Pedido realizado com suceso",
     };
-    console.log(response);
-    finalize(false);
+    
     alert(response.success);
+    finalize(false);
+    
     history.push('/waiting');
   }
 

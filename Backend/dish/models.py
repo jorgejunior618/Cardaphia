@@ -1,4 +1,6 @@
 from django.db import models
+
+from restaurant.models import Restaurant
 from menu.models import Menu
 
 class Dish (models.Model):
@@ -12,12 +14,13 @@ class Dish (models.Model):
         ('wine', 'Vinho'),
     )
 
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    dishId = models.AutoField(primary_key=True)
 
-
-    #codigo é o id do atribuido pelo django.
     name = models.CharField(max_length=255)
-    #image = models.ImageField()
+
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=None)
+
     category = models.CharField(
         max_length=10,
         choices=CATEGORIES
