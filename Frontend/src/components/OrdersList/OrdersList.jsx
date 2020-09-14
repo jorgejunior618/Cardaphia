@@ -45,11 +45,13 @@ class OrdersList extends Component {
                   </div>
                   <ul id="resquestUl">
                     {
-                      order.dishes.map( dish => (                    
-                        <li key={dish}>
+                      order.dishes.map( (dish,index) => {
+                        return(                    
+                        <li key={index + dish}>
                           <span>{dish}</span> <br/>
                         </li>
-                      ))
+                        )}
+                      )
                     }
                   </ul>
                 </li>

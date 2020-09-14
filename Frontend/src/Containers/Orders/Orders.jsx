@@ -9,29 +9,38 @@ import { getMenu } from '../../Services/clientes.service';
 
 
 function Orders() {
-  const [ orders, setorders] = useState([]);
-  const [ dishes, setDishes ] = useState([]);
-  const isLoged = localStorage.getItem('restaurantCode');
-
-  if (!isLoged) {
-    history.push('/restaurant');
-  }
+  const restaurantCode = localStorage.getItem('restaurantCode');
   
   const history = useHistory();
   
+  if (!restaurantCode) {
+    history.push('/restaurant');
+  }
+  
+  const [ orders, setorders] = useState([]);
+  const [ dishes, setDishes ] = useState([]);
+
+  const [time, setTime] = useState(true);
+  
   useEffect(() => {
-      getOrders(1)
+      getOrders(restaurantCode)
         .then(response => {
           setorders(response.data);        
         })
         .catch(error => console.log({error: error}));
-  },[]);
+
+
+        setInterval(() => {
+          setTime(!time)
+        },10000)
+
+  },[restaurantCode,time]);
 
   useEffect(() => {
-    getMenu(1)
+    getMenu(restaurantCode)
       .then(response => setDishes(response.data))
       .catch(error => console.log(error)); 
-  }, []);
+  },[restaurantCode]);
 
   function pedidos(orders,dishes){
     if(orders.orders && dishes.dishes){
@@ -40,8 +49,7 @@ function Orders() {
         for(let j=0; j<orders.orders[i].dishes.length; j++){
 
           for(let a=0; a<dishes.dishes.length; a++){
-
-            if(orders.orders[i].dishes[j] === dishes.dishes[a].id){
+            if(orders.orders[i].dishes[j] === dishes.dishes[a].dishId){
               orders.orders[i].dishes[j] = dishes.dishes[a].name
             }
           }

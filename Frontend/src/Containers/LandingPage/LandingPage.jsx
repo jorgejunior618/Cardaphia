@@ -21,7 +21,7 @@ function LandingPage(props) {
 
     if (isRestaurant) {
       if (code.length !== 3) {
-        return alert('Digite o código de 3 (seis) números do seu restaurante');
+        return alert('Digite o código de 3 (três) números do seu restaurante');
       }
 
       if (isNaN(code)) {
@@ -35,7 +35,7 @@ function LandingPage(props) {
     
     else {
       if (code.length !== 6) {
-        return alert('Digite o código de 6 (três) números da mesa que deseja participar');
+        return alert('Digite o código de 6 (seis) números da mesa que deseja participar');
       }
 
       const restaurantID = code.slice(0, 3);
