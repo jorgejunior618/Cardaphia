@@ -7,3 +7,12 @@ export function getMenu(restaurantID) {
 
   return response;
 }
+
+export function finishOrder(restaurantID, order) {
+  
+  const endpoint = `/restaurante/${restaurantID}/pedidos/criar/`;
+  
+  const response = api.post(endpoint, order)
+
+  return response;
+}
