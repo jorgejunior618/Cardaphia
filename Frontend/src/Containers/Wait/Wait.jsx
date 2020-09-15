@@ -9,7 +9,7 @@ export default function Wait() {
   return (
     <>
       <h1>Aguarde seu pedido ser chamado</h1>
-      <h2>Número do pedido: {localStorage.getItem('tableCode')}</h2>
+      <h2>Número do pedido: {localStorage.getItem('orderId')}</h2>
       <button onClick={redirectToMenu}>Realizar Novo Pedido</button>
     </>
   )
