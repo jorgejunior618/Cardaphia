@@ -23,7 +23,7 @@ def buscarPedidosEstabelecimento(request, id):
         if pedidos_var[i].restaurant.restaurantId == id:
             aux_list.append(pedidos_var[i])
 
-    serializer = serial.orderSerializer(aux_list, many=True)
+    serializer = serial.OrderSerializer(aux_list, many=True)
     JSONObj = JsonResponse({'orders': serializer.data}, safe=False, status=status.HTTP_200_OK)
     return JSONObj
 

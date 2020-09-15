@@ -15,7 +15,7 @@ from dish.models import Dish
 from serial import OrderSerializer
 
 @api_view(['POST'])
-def finishOrder (request):
+def finishOrder (request, id):
     body = request.data
     try:
         restaurant = Restaurant.objects.get(pk=body["restaurantId"])
@@ -25,7 +25,7 @@ def finishOrder (request):
         )
         dishes = []
         for dishId in body["dishes"]:
-            dishes.append(Dish.objects.get(pk=dishId["dish"]))
+            dishes.append(Dish.objects.get(pk=dishId))
         order.save()
         order.dishes.set(dishes)
         serializer = OrderSerializer(order)
