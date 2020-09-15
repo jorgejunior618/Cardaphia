@@ -5,19 +5,19 @@ import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
 import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
-import { getMenu, finishOrder } from '../../Services/clientes.service';
+import { getMenu } from '../../Services/clientes.service';
 
-function Menu () {
+function Menu (props) {
   const history = useHistory();
   
-  const restaurantID = Number(localStorage.getItem('restaurantID'));
+  const restaurantID = localStorage.getItem('restaurantID');
   const tableCode = localStorage.getItem('tableCode');
 
   if (!tableCode) {
     history.push('/');
   }
   
-  const order = new Order(tableCode, restaurantID);
+  const order = new Order(tableCode, Number(restaurantID));
 
   const [ isFinalized, finalize ] = useState(false)
   const [ orderRealized, setOrderRealized ] = useState({});
@@ -41,11 +41,6 @@ function Menu () {
     
     alert(response.success);
     finalize(false);
-
-    finishOrder(restaurantID, orderRealized).then(response => {
-      console.log(response.data);
-      localStorage.setItem('orderId', response.data.orderId);
-    });
     
     history.push('/waiting');
   }

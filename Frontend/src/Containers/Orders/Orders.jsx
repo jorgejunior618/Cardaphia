@@ -21,19 +21,14 @@ function Orders() {
   const [ dishes, setDishes ] = useState([]);
 
   const [time, setTime] = useState(true);
-  
+
   useEffect(() => {
       getOrders(restaurantCode)
         .then(response => {
-          setorders(response.data);        
+          setorders(response.data);
+          setTimeout(()=>{setTime(!time)},10000)
         })
-        .catch(error => console.log({error: error}));
-
-
-        setInterval(() => {
-          setTime(!time)
-        },10000)
-
+        .catch(error => console.log({error: error}));      
   },[restaurantCode,time]);
 
   useEffect(() => {
