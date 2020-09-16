@@ -59,28 +59,28 @@ function LandingPage(props) {
     )
   }
   return (
-    <section id="landingPage">
-      <div>
-        <img src={appIcon} alt="Cardaphia"/>
-        <h3>
-          Digite o código {isRestaurant
-            ? 'do seu restaurante'
-            : 'da mesa, e boa refeição'}
-          </h3>
-      </div>
+    <section className="componentContainer" id="landingPage">
+      <img src={appIcon} alt="Cardaphia"/>
+
       <form
         action="submit"
         onSubmit={redirectToNextPage}
       >
+        <h2>
+          Digite o código {isRestaurant
+            ? 'do seu restaurante'
+            : 'da mesa, e boa refeição'}
+        </h2>
+
         <input
           type="text"
           name="code"
-          placeholder={`#Código ${isRestaurant
+          placeholder={`# Código ${isRestaurant
             ? 'do seu restaurante'
             : 'da mesa'}`}
           onChange={handleChangeInput}
         />
-        <button type="submit">Entrar</button>
+        <button className="button" type="submit">Entrar</button>
       </form>
     </section>
   );

@@ -27,14 +27,9 @@ class OrdersList extends Component {
         <ul id="requestList">
           {(this.state.orders.length)
             ? (this.state.orders.map(order => (
-                /* Order:
-                    id: 1
-                    orderTime: "2020-09-09T01:30:58.119695Z"
-                    table: 2
-                */
-
                 <li id="requestItem" key={order.id}>
                   <div id="resquestInfo">
+                    
                     <span>{order.id}</span>
 
                     <span>
