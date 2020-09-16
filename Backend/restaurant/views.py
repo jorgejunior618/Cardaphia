@@ -18,6 +18,7 @@ import serial
 @api_view(['GET'])
 def buscarPedidosEstabelecimento(request, id):
     #busca todos os pedidos em aberto/sendo preparados do restaurante
+    #o id passado é o valor do id do restaurante
 
     orderFromRestaurant = [] #lista para salvar somente os pedidos da quele resturante
     allOrders = Order.objects.all() #lista com todos os pedidos
@@ -29,23 +30,29 @@ def buscarPedidosEstabelecimento(request, id):
             
             orderFromRestaurant.append(allOrders[i]) #salva o pedido 
 
-    serializer = serial.OrderSerializer(orderFromRestaurant, many=True)
-    aux = serializer.data
-    a = 0
-    b = 0
-    while a < len(aux):
-        aux[a].pop('restaurant')
-        orderNumber = aux[a]['orderNumber']
-        aux[a]['dish'] = [aux[a]['dish']]
-        b = a+1
-        while b < len(aux):
-            if aux[b]['orderNumber'] == orderNumber:
-                aux[a]['dish'].append(aux.pop(b)['dish'])
-                b -= 1
-            b += 1
-        aux[a]['orderId'] = a+1
-        a += 1
-    
+    serializer = serial.OrderSerializer(orderFromRestaurant, many=True) #serializa os pedidos dos restaurantes
+    aux = serializer.data #salva os valores serializados em uma variavel
+    a = 0 #variavel para escolher qual vai ser o pedido a ser analizado
+    b = 0 #variavel para comparar se o pedido 'b' é o mesmo que o 'a'
 
-    JSONObj = JsonResponse({'orders': aux}, safe=False, status=status.HTTP_200_OK)
-    return JSONObj
+    while a < len(aux): #enquanto 'a' não for maior que os pedidos do restaurante
+
+        aux[a].pop('restaurant') #tira o id do restaurante do serializer
+        orderNumber = aux[a]['orderNumber'] #pega o indentificador do pedido
+        aux[a]['dish'] = [aux[a]['dish']] #transforma o 'dish' em uma lista de 'dish'
+        b = a+1 #salva o 'b' como sendo um valor que o a para evitar a comparação de se 'a' == 'a'
+
+        while b < len(aux): #enquanto 'b' não for maior que os pedidos do restaurante
+
+            if aux[b]['orderNumber'] == orderNumber: #se o indentificador do pedido de 'b' for o mesmo do 'a'
+
+                aux[a]['dish'].append(aux.pop(b)['dish']) #coloca o prato para dentro da lista de pratos do 'order' 'a'
+                                                          #e retira o 'order' 'b' da lista de pedidos
+                b -= 1 #como eu tirei o valor atual b , tenho que fazer isso para não pular uma verificação
+
+            b += 1 #aumenta o indice de 'b'
+        aux[a]['orderId'] = a+1 # modifica o id do pedido para ficar mais parecido com o id da nova lista
+        a += 1 #aumenta o indice 'a'
+    
+    JSONObj = JsonResponse({'orders': aux}, safe=False, status=status.HTTP_200_OK) #transforma o serializer em json
+    return JSONObj #retorna em json da lista de pedidos do restaurante informado
