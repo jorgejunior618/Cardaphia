@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './PopUp.css';
+import imagem from  "../../assets/arrowLeft.svg";
 
 class PopUp extends Component {
   constructor(props){
@@ -19,8 +20,8 @@ class PopUp extends Component {
   render() { 
     return (
       <div id="popUp">
+        <p onClick={this.abortOrder}><img src={imagem} alt=""/></p>
         <h3>Seu Pedido</h3>
-        
         <div id="requestView">
           <ul id="itens">
             {this.order.dishes.map(dish => (
@@ -30,16 +31,14 @@ class PopUp extends Component {
               </li>
             ))}
           </ul>
-          
-          <span>Valor do Pedido: R${this.order.requestValue}</span>
+        <div id='valor'>
+          <span>Valor do Pedido:</span>
+          <span>{this.order.requestValue}</span>
+        </div>
         </div>
 
-        <button onClick={this.finalizeOrder.bind(this)}>
+        <button class='button' onClick={this.finalizeOrder.bind(this)}>
           Finalizar Pedido
-        </button>
-
-        <button onClick={this.abortOrder}>
-          Voltar para o menu
         </button>
       </div>
     );

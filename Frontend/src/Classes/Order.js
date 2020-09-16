@@ -21,7 +21,7 @@ class Order {
     const value = this.dishes.reduce((value, dish) => {
       return (Number(dish.dish.price) * dish.amount) + value;
     }, 0)
-    return value;
+    return value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
   setDishesToSendDataBase() {

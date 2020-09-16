@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
@@ -8,6 +8,9 @@ import PopUp from '../../components/PopUp/PopUp';
 import PopUpDetails from '../../components/PopUpDetails/PopUpDetails'
 
 import { getMenu, finishOrder } from '../../Services/clientes.service';
+
+import arrowLeft from '../../assets/arrowLeft.svg'
+import './Menu.css'
 
 function Menu () {
   const history = useHistory();
@@ -59,7 +62,6 @@ function Menu () {
     setOrderRealized(order);
 
     finalize(true);
-
   }
   
     function abortOrder() {
@@ -70,16 +72,16 @@ function Menu () {
     setDishDetails(dish);
 
     setClick(true);
-
   }
 
   function abortShowDetails(dish){
     setClick(false);
-
   }
 
   return (
-    <> 
+    <section className="container" id="menu"> 
+      <Link to="/"><img src={arrowLeft} alt="voltar"/></Link>
+      
       <Header
         title="Restauante Jorge"
         subtitle="Cardápio"
@@ -91,8 +93,6 @@ function Menu () {
         ShowPopUp={ShowPopUp}
         showDetails={showDetails}
       />
-
-      {/* <h3>Sem Cardápio no momento</h3> */}
       
       {click
       ? (
@@ -100,7 +100,7 @@ function Menu () {
         dish={dishDetails}
         abortShowDetails={abortShowDetails}
       />)
-      : (<></>) }
+      : (<></>)}
   
       {isFinalized
       ? (
@@ -109,9 +109,9 @@ function Menu () {
         finalizeOrder={finalizeOrder}
         abortOrder={abortOrder}
       />)
-      : (<></>) }
+      : (<></>)}
        
-    </>
+    </section>
   );
 }
  

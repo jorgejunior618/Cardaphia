@@ -4,17 +4,22 @@
   align-items: center;
   justify-content: space-between;
 
-  width: 240px;
-  height: 200px;
+  width: 80%;
+  max-width: 400px;
   padding: 20px 10px;
 
   position: absolute;
   top: 0;
 
-  background-color: #606060;
+  border-radius: 5px;
+  background-color: #ffffff;
   left: 50vw;
   top: 50vh;
   transform: translate(-50%, -50%);
+}
+
+#popUp p img {
+  width: 20px;
 }
 
 #popUp #requestView {
@@ -24,16 +29,57 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color: #000000;
 }
 
-#popUp #itens {
+#popUp p{
+  width: 100%;
+  margin-left: 0px;
+}
+
+#popUp .button{
   width: 100%;
 }
 
+#popUp h3 {
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+}
+
+#popUp #itens {
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #c4c4c4;
+  border-radius: 5px;
+}
+
 #popUp #itens li {
-  margin: 10px;
-  width: 80%;
+  width: 100%;
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #000000;
+  font-weight: 700;
+}
+
+#popUp #itens li span{
+  font-size: 14px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#popUp #valor{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
+  font-weight: 700;
 }

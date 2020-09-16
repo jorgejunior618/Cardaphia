@@ -6,10 +6,9 @@ class OrdersList extends Component {
   state = {
     orders: [],
   }
-
   static getDerivedStateFromProps(props, state) {
-    //console.log('Orders', props.orders);
-    if(props.orders.length !== state.orders.length) {
+    //console.log('Orders', props.orders.length !== state.orders);
+    if(props.orders.length !== state.orders) {
       return {
         orders: props.orders.orders,
       }
@@ -25,12 +24,12 @@ class OrdersList extends Component {
       <>
         <h2>Pedidos realizados</h2>
         <ul id="requestList">
-          {(this.state.orders.length)
-            ? (this.state.orders.map(order => (
-                <li id="requestItem" key={order.id}>
+          {(this.props.orders.length)
+            ? (this.props.orders.map(order => (
+                <li id="requestItem" key={order.orderId}>
                   <div id="resquestInfo">
                     
-                    <span>{order.id}</span>
+                    <span>{order.orderId}</span>
 
                     <span>
                       {order.orderTime
@@ -40,11 +39,11 @@ class OrdersList extends Component {
                   </div>
                   <ul id="resquestUl">
                     {
-                      order.dishes.map( (dish,index) => {
+                      order.dish.map( (dishs,index) => {
                         return(                    
-                        <li key={index + dish}>
-                          <span>{dish}</span> <br/>
-                        </li>
+                          <li key={index + dishs}>
+                            <span>{dishs}</span> <br/>
+                          </li>
                         )}
                       )
                     }

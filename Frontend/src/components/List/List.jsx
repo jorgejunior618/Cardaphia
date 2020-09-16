@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
-import PopUpDetails from './../PopUpDetails/PopUpDetails.jsx'
 
 import './List.css';
 
@@ -46,6 +43,25 @@ class  List extends Component {
     
     ShowPopUp(this.order);
   }
+
+  changeValueInput(e, id, dish) {
+    const { name } = e.target;
+
+    const input = document.querySelector(`input[name="${id}"]`);
+
+    const value = Number(input.value)
+
+    if (name === 'remove') {
+      if (value !== 0){
+        input.value = value-1;
+        this.changeOrder(dish, input.value)
+      }
+
+    } else {
+      input.value = value+1;
+      this.changeOrder(dish, input.value)
+    }
+  }
   
   dishDetails(dish){
     const {showDetails} = this.props
@@ -55,29 +71,49 @@ class  List extends Component {
   render() { 
     return (
       <>
-        <Link to="/">VOLTAR</Link>
         <ul id="menuList">
 
           {this.state.dishes.map(dish => (
             <li id="menuItem" key={dish.dishId}>
               
-              <span onClick={() => {this.dishDetails(dish)}}>Prato: {dish.name}</span> <br/>
-              <span>preco: {dish.price}</span>
-                
+              <div className="dishInfos">
+                <span onClick={() => {this.dishDetails(dish)}}>{dish.name}</span> <br/>
+                <span>{dish.price}</span>
+              </div>
 
               <span id="amountItem">
+                <button
+                  name="remove"
+                  onClick={e => this.changeValueInput(e, dish.dishId, dish)}
+                  className="amountChange"
+                >
+                  -
+                </button>
+                
                 <input
+                  id="amountNumber"
+                  name={dish.dishId}
+                  disabled
                   defaultValue="0"
                   onChange={(e) => this.changeOrder(dish, e.target.value)}
                   min="0"
                   type="number"
                 />
+
+                <button
+                  name="add"
+                  onClick={e => this.changeValueInput(e, dish.dishId, dish)}
+                  className="amountChange"
+                  id="right"
+                >
+                  +
+                </button>
               </span>
             </li>
           ))}
 
         </ul>
-        <button onClick={this.sendOrder.bind(this)} id="sendOrder">
+        <button className="button" onClick={this.sendOrder.bind(this)} id="sendOrder">
           Enviar Pedido
         </button>
       </>
