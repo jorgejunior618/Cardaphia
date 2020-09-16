@@ -44,16 +44,13 @@ function Menu () {
       request: orderRealized,
       success: "Pedido realizado com suceso",
     };
-
-    console.log(response.request)
     
     alert(response.success);
     finalize(false);
 
-    finishOrder(restaurantID, orderRealized).then(response => {
-      console.log(response.data);
-      localStorage.setItem('orderId', response.data.orderId);
-    });
+    finishOrder(restaurantID, orderRealized)
+    
+    localStorage.setItem('orderId', order.orderNumber);
     
     history.push('/waiting');
   }

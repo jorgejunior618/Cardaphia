@@ -47,7 +47,7 @@ def buscarPedidosEstabelecimento(request, id):
             if orders_list[b]['orderNumber'] == orderNumber: #se o indentificador do pedido de 'b' for o mesmo do 'a'
 
                 orders_list[a]['dish'].append(orders_list.pop(b)['dish']) #coloca o prato para dentro da lista de pratos do 'order' 'a'
-                                                          #e retira o 'order' 'b' da lista de pedidos
+                                                                          #e retira o 'order' 'b' da lista de pedidos
                 b -= 1 #como eu tirei o valor atual b , tenho que fazer isso para não pular uma verificação
 
             b += 1 #aumenta o indice de 'b'

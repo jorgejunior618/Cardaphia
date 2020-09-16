@@ -3,6 +3,19 @@ class Order {
     this.dishes = [];
     this.orderTable = tableCode;
     this.restaurantId = restaurantId;
+    this.orderNumber = this._generateOrderNumber();
+    this.situation = 'wating';
+  }
+
+  _generateOrderNumber() {
+    var orderNumber = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  
+    for (var i = 0; i < 6; i++){
+      orderNumber += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return orderNumber;
   }
 
   get code() {

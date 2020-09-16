@@ -11,7 +11,7 @@ class PopUp extends Component {
     
   }
 
-  finalizeOrder(){
+  finalizeOrder() {
     const { finalizeOrder } = this.props;
     this.order.setDishesToSendDataBase();
     finalizeOrder(this.order);
@@ -37,7 +37,7 @@ class PopUp extends Component {
         </div>
         </div>
 
-        <button class='button' onClick={this.finalizeOrder.bind(this)}>
+        <button className='button' onClick={this.finalizeOrder.bind(this)}>
           Finalizar Pedido
         </button>
       </div>
