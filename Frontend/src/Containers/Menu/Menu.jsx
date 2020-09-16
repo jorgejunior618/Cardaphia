@@ -5,6 +5,8 @@ import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
 import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
+import PopUpDetails from '../../components/PopUpDetails/PopUpDetails'
+
 import { getMenu, finishOrder } from '../../Services/clientes.service';
 
 function Menu () {
@@ -22,6 +24,9 @@ function Menu () {
   const [ isFinalized, finalize ] = useState(false)
   const [ orderRealized, setOrderRealized ] = useState({});
   const [ dishes, setDishes ] = useState([]);
+
+  const [click, setClick ] = useState(false);
+  const [dishDetails, setDishDetails ] = useState({});
 
   useEffect(() => {
     getMenu(restaurantID)
@@ -54,10 +59,23 @@ function Menu () {
     setOrderRealized(order);
 
     finalize(true);
+
+  }
+  
+    function abortOrder() {
+      finalize(false);
+    }
+
+  function showDetails(dish){
+    setDishDetails(dish);
+
+    setClick(true);
+
   }
 
-  function abortOrder() {
-    finalize(false);
+  function abortShowDetails(dish){
+    setClick(false);
+
   }
 
   return (
@@ -71,10 +89,19 @@ function Menu () {
         dishes={dishes}
         order={order}
         ShowPopUp={ShowPopUp}
+        showDetails={showDetails}
       />
 
       {/* <h3>Sem Cardápio no momento</h3> */}
       
+      {click
+      ? (
+      <PopUpDetails
+        dish={dishDetails}
+        abortShowDetails={abortShowDetails}
+      />)
+      : (<></>) }
+  
       {isFinalized
       ? (
       <PopUp
