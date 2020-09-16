@@ -7,7 +7,7 @@ import Order from '../../Classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
 import PopUpDetails from '../../components/PopUpDetails/PopUpDetails'
 
-import { getMenu, finishOrder } from '../../Services/clientes.service';
+import { getMenu, getDish, finishOrder } from '../../Services/clientes.service';
 
 import arrowLeft from '../../assets/arrowLeft.svg'
 import './Menu.css'
@@ -65,8 +65,10 @@ function Menu () {
       finalize(false);
     }
 
-  function showDetails(dish){
-    setDishDetails(dish);
+  function showDetails(dishId){
+    getDish(restaurantID, dishId).then(response => {
+      setDishDetails(response.data);
+    });
 
     setClick(true);
   }
@@ -80,7 +82,6 @@ function Menu () {
       <Link to="/"><img src={arrowLeft} alt="voltar"/></Link>
       
       <Header
-        title="Restauante Jorge"
         subtitle="Cardápio"
       />
 

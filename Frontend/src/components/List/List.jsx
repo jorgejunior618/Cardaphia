@@ -77,8 +77,13 @@ class  List extends Component {
             <li id="menuItem" key={dish.dishId}>
               
               <div className="dishInfos">
-                <span onClick={() => {this.dishDetails(dish)}}>{dish.name}</span> <br/>
-                <span>{dish.price}</span>
+                <span onClick={() => {this.dishDetails(dish.dishId)}}>{dish.name}</span> <br/>
+                <span>
+                  {Number(dish.price).toLocaleString('pt-br',{
+                    style: 'currency',
+                    currency: 'BRL'
+                  })}
+                </span>
               </div>
 
               <span id="amountItem">

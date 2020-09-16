@@ -1,8 +1,17 @@
+#ordersContainer h2 {
+  margin-top: 20px;
+  margin-left: 10vw;
+}
+
 #requestList {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 10px auto;
-  width: 80vw;
+  
+  width: 100%;
+  height: 72vh;
+  overflow: scroll;
 }
 
 #requestList #requestItem {
@@ -19,15 +28,20 @@
   flex-direction: column;
 }
 
-#requestList #requestItem #resquestInfo{
+#requestList #requestItem #resquestInfo {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-#requestList #requestItem #resquestUl{
+#requestList #requestItem #resquestUl {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding-top: 10px;
+}
+
+#requestList #requestItem #resquestUl li {
+  margin-top: 8px;
 }
