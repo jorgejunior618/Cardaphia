@@ -5,7 +5,6 @@ import './PopUpDetails.css';
 class PopUpDetails extends Component {
   constructor(props){
     super(props);
-    console.log(props);
     this.dish = props.dish
     this.abortShowDetails = props.abortShowDetails
     

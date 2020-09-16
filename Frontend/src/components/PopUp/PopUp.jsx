@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './PopUp.css';
-import imagem from  "../../assets/chevron-left 2.svg";
+import imagem from  "../../assets/arrowLeft.svg";
 
 class PopUp extends Component {
   constructor(props){
@@ -11,7 +11,7 @@ class PopUp extends Component {
     
   }
 
-  finalizeOrder(){
+  finalizeOrder() {
     const { finalizeOrder } = this.props;
     this.order.setDishesToSendDataBase();
     finalizeOrder(this.order);
@@ -33,11 +33,11 @@ class PopUp extends Component {
           </ul>
         <div id='valor'>
           <span>Valor do Pedido:</span>
-          <span>R${this.order.requestValue}</span>
+          <span>{this.order.requestValue}</span>
         </div>
         </div>
 
-        <button class='button' onClick={this.finalizeOrder.bind(this)}>
+        <button className='button' onClick={this.finalizeOrder.bind(this)}>
           Finalizar Pedido
         </button>
       </div>
