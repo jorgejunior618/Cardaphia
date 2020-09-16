@@ -19,16 +19,16 @@ def finishOrder (request, id):
     body = request.data
     try:
         restaurant = Restaurant.objects.get(pk=body["restaurantId"])
-        order = Order(
-            restaurant=restaurant,
-            orderTable=body["orderTable"]
-        )
-        dishes = []
+
         for dishId in body["dishes"]:
-            dishes.append(Dish.objects.get(pk=dishId))
-        order.save()
-        order.dishes.set(dishes)
-        serializer = OrderSerializer(order)
-        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            order = Order(
+                restaurant=restaurant,
+                orderTable=body["orderTable"],
+                orderNumber=body["orderNumber"],
+                situation=body["situation"],
+                dish=Dish.objects.get(pk=dishId)
+            )
+            order.save()
+        return Response(status=status.HTTP_201_CREATED)
     except ObjectDoesNotExist:
         return Response(status=status.HTTP_400_BAD_REQUEST)

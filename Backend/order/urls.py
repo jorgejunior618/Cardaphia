@@ -6,4 +6,3 @@ urlpatterns = [
     path('criar/', views.finishOrder),
 
 ]
-

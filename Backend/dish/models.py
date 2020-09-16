@@ -12,6 +12,7 @@ class Dish (models.Model):
         ('chinese', 'Chinês'),
         ('soda', 'Refrigerante'),
         ('wine', 'Vinho'),
+        ('water', 'Água'),
     )
 
     dishId = models.AutoField(primary_key=True)
@@ -20,6 +21,9 @@ class Dish (models.Model):
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu, on_delete=None)
+
+    nutritionalValue = models.TextField(blank=True)
+    ingredients = models.TextField(blank=True)
 
     category = models.CharField(
         max_length=10,

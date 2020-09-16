@@ -17,17 +17,35 @@ import serial
 
 @api_view(['GET'])
 def buscarPedidosEstabelecimento(request, id):
-    aux_list = []
-    pedidos_var = Order.objects.all()
-    for i in range(len(pedidos_var)):
-        if pedidos_var[i].restaurant.restaurantId == id:
-            aux_list.append(pedidos_var[i])
+    #busca todos os pedidos em aberto/sendo preparados do restaurante
 
-    serializer = serial.OrderSerializer(aux_list, many=True)
-    JSONObj = JsonResponse({'orders': serializer.data}, safe=False, status=status.HTTP_200_OK)
-    return JSONObj
+    orderFromRestaurant = [] #lista para salvar somente os pedidos da quele resturante
+    allOrders = Order.objects.all() #lista com todos os pedidos
 
+    for i in range(len(allOrders)): # loop que passa por todos os pedidos
+        
+        if (allOrders[i].restaurant.restaurantId == id and #se o id do restaurante dentro do pedido for igual ao id do restaurante
+           allOrders[i].situation != 'made'): #e o pedido não estiver sido prerparado
+            
+            orderFromRestaurant.append(allOrders[i]) #salva o pedido 
 
-
-
+    serializer = serial.OrderSerializer(orderFromRestaurant, many=True)
+    aux = serializer.data
+    a = 0
+    b = 0
+    while a < len(aux):
+        aux[a].pop('restaurant')
+        orderNumber = aux[a]['orderNumber']
+        aux[a]['dish'] = [aux[a]['dish']]
+        b = a+1
+        while b < len(aux):
+            if aux[b]['orderNumber'] == orderNumber:
+                aux[a]['dish'].append(aux.pop(b)['dish'])
+                b -= 1
+            b += 1
+        aux[a]['orderId'] = a+1
+        a += 1
     
+
+    JSONObj = JsonResponse({'orders': aux}, safe=False, status=status.HTTP_200_OK)
+    return JSONObj

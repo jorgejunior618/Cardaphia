@@ -6,4 +6,3 @@ urlpatterns = [
     path('pedidos/', views.buscarPedidosEstabelecimento),
 
 ]
-

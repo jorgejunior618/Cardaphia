@@ -25,7 +25,7 @@ class menuSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
-  dishes = serializers.StringRelatedField(many=True)
+  dish = serializers.StringRelatedField()
 
   class Meta:
     model = order_models.Order
