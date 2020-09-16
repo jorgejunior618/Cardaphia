@@ -8,6 +8,14 @@ export function getMenu(restaurantID) {
   return response;
 }
 
+export function getDish(restaurantID, dishID) {
+  const endpoint = `/restaurante/${restaurantID}/dishes/${dishID}/`;
+  
+  const response = api.get(endpoint)
+
+  return response;
+}
+
 export function finishOrder(restaurantID, order) {
   
   const endpoint = `/restaurante/${restaurantID}/pedidos/criar/`;

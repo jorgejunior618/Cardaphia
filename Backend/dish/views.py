@@ -2,9 +2,9 @@ from django.shortcuts import render, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 
-
 from rest_framework.decorators import api_view
 from rest_framework import generics, status
+from rest_framework.response import Response
 
 import json
 
@@ -27,3 +27,15 @@ def buscarDishesRestaurante(request, id):
     serializer = serial.dishSerializer(aux_list, many=True)
     JSONObj = JsonResponse({'dishes': serializer.data}, safe=False, status=status.HTTP_200_OK)
     return JSONObj
+
+@api_view(['GET'])
+def getDish(request, id, dishId):
+    try:
+        dish = Dish.objects.get(pk=dishId)
+        if dish.restaurant.restaurantId == id:
+            serializer = serial.dishSerializer(instance=dish)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    except ObjectDoesNotExist:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

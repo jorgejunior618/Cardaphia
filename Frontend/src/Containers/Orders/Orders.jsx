@@ -5,8 +5,8 @@ import Header from '../../components/Header/Header';
 import OrdersList from '../../components/OrdersList/OrdersList';
 
 import { getOrders } from '../../Services/Restaurant.service';
-import { getMenu } from '../../Services/clientes.service';
 
+import './Orders.css';
 
 function Orders() {
   const restaurantCode = localStorage.getItem('restaurantCode');
@@ -18,7 +18,6 @@ function Orders() {
   }
   
   const [ orders, setorders] = useState([]);
-  const [ dishes, setDishes ] = useState([]);
 
   const [time, setTime] = useState(true);
 
@@ -30,33 +29,9 @@ function Orders() {
         })
         .catch(error => console.log({error: error}));      
   },[restaurantCode,time]);
-
-  useEffect(() => {
-    getMenu(restaurantCode)
-      .then(response => {
-        setDishes(response.data.dishes);
-      })
-      .catch(error => console.log(error)); 
-  },[restaurantCode]);
-
-  function pedidos(orders,dishes){
-    if(orders.orders && dishes.dishes){
-      for(let i=0; i<orders.orders.length; i++ ){
-        
-        for(let j=0; j<orders.orders[i].dishes.length; j++){
-
-          for(let a=0; a<dishes.dishes.length; a++){
-            if(orders.orders[i].dishes[j] === dishes.dishes[a].dishId){
-              orders.orders[i].dishes[j] = dishes.dishes[a].name
-            }
-          }
-        }
-      }
-    }
-  }
-  pedidos(orders,dishes)
+  
   return (
-    <> 
+    <section id="Orders"> 
       <Header
         title="Restauante Jorge"
         subtitle="Cardápio"
@@ -65,7 +40,7 @@ function Orders() {
       <OrdersList
         orders={orders}
       />
-    </>
+    </section>
   );
 }
 
