@@ -25,7 +25,7 @@ function Orders() {
   useEffect(() => {
       getOrders(restaurantCode)
         .then(response => {
-          setorders(response.data);
+          setorders(response.data.orders);
           setTimeout(()=>{setTime(!time)},10000)
         })
         .catch(error => console.log({error: error}));      
@@ -33,7 +33,9 @@ function Orders() {
 
   useEffect(() => {
     getMenu(restaurantCode)
-      .then(response => setDishes(response.data))
+      .then(response => {
+        setDishes(response.data.dishes);
+      })
       .catch(error => console.log(error)); 
   },[restaurantCode]);
 
