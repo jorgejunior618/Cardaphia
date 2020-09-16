@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import PopUpDetails from './../PopUpDetails/PopUpDetails.jsx'
+
 import './List.css';
 
-class List extends Component {
+class  List extends Component {
   state = {
     dishes: [],
   }
@@ -37,12 +39,17 @@ class List extends Component {
 
   sendOrder() {
     const { ShowPopUp } = this.props;
-
+    
     if (this.order.dishes.length === 0) {
       return alert('Adicione a amount dos dishes que deseja pedir! :)')
     }
     
     ShowPopUp(this.order);
+  }
+  
+  dishDetails(dish){
+    const {showDetails} = this.props
+    showDetails(dish)
   }
 
   render() { 
@@ -53,10 +60,10 @@ class List extends Component {
 
           {this.state.dishes.map(dish => (
             <li id="menuItem" key={dish.dishId}>
-              <Link to={`/dish/${dish.dishId}`}>
-                <span>Prato: {dish.name}</span> <br/>
-                <span>preco: {dish.price}</span>
-              </Link>
+              
+              <span onClick={() => {this.dishDetails(dish)}}>Prato: {dish.name}</span> <br/>
+              <span>preco: {dish.price}</span>
+                
 
               <span id="amountItem">
                 <input
