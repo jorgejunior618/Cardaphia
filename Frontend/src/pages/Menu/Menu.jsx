@@ -3,11 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import List from '../../components/List/List';
-import Order from '../../Classes/Order';
+import Order from '../../classes/Order';
 import PopUp from '../../components/PopUp/PopUp';
 import PopUpDetails from '../../components/PopUpDetails/PopUpDetails'
 
-import { getMenu, getDish, finishOrder } from '../../Services/clientes.service';
+import { getMenu, getDish, finishOrder } from '../../services/clientes.service';
 
 import arrowLeft from '../../assets/arrowLeft.svg'
 import './Menu.css'

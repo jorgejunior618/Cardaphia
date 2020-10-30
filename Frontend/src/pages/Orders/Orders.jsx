@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import OrdersList from '../../components/OrdersList/OrdersList';
 
-import { getOrders } from '../../Services/Restaurant.service';
+import { getOrders } from '../../services/Restaurant.service';
 
 import './Orders.css';
 
